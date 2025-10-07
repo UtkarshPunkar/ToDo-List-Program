@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_TASKS 100
+#define MAX_LEN 100
+#define FILE_NAME "todo.txt"
+
+void addTask();
+void viewTasks();
+void deleteTask();
+
+int main() {
+    int choice;
+    while (1) {
+        printf("\n====== TO-DO LIST APP ======\n");
+        printf("1. Add Task\n");
+        printf("2. View Tasks\n");
+        printf("3. Delete Task\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); // clear newline
+
+        switch (choice) {
+            case 1:
+                addTask();
+                break;
+            case 2:
+                viewTasks();
+                break;
+            case 3:
+                deleteTask();
+                break;
+            case 4:
+                printf("Exiting... Goodbye!\n");
+                exit(0);
+            default:
+                printf("Invalid choice! Try again.\n");
+        }
+    }
+    return 0;
+}
+
+void addTask() {
+    FILE *file = fopen(FILE_NAME, "a+"); // a+ creates file if not exist
+    if (!file) {
+        perror("Error opening file");
+        return;
+    }
+
+    char task[MAX_LEN];
+    printf("Enter task: ");
+    fgets(task, sizeof(task), stdin);
+    task[strcspn(task, "\n")] = '\0'; // remove newline
+
+    fprintf(file, "%s\n", task);
+    fclose(file);
+
+    printf("Task added successfully!\n");
+}
+
+void viewTasks() {
+    FILE *file = fopen(FILE_NAME, "r");
+    if (!file) {
+        printf("No tasks found!\n");
+        return;
+    }
+
+    char task[MAX_LEN];
+    int count = 1;
+    printf("\nYour Tasks:\n");
+    printf("-----------------------\n");
+    while (fgets(task, sizeof(task), file)) {
+        printf("%d. %s", count++, task);
+    }
+    printf("-----------------------\n");
+
+    if (count == 1)
+        printf("No tasks available.\n");
+
+    fclose(file);
+}
+
+void deleteTask() {
+    FILE *file = fopen(FILE_NAME, "r");
+    if (!file) {
+        printf("No tasks to delete!\n");
+        return;
+    }
+
+    char tasks[MAX_TASKS][MAX_LEN];
+    int count = 0;
+    while (fgets(tasks[count], sizeof(tasks[count]), file)) {
+        tasks[count][strcspn(tasks[count], "\n")] = '\0';
+        count++;
+    }
+    fclose(file);
+
+    if (count == 0) {
+        printf("No tasks found!\n");
+        return;
+    }
+
+    int del;
+    printf("\nEnter task number to delete: ");
+    scanf("%d", &del);
+    getchar();
+
+    if (del < 1 || del > count) {
+        printf("Invalid task number!\n");
+        return;
+    }
+
+    file = fopen(FILE_NAME, "w");
+    for (int i = 0; i < count; i++) {
+        if (i != del - 1)
+            fprintf(file, "%s\n", tasks[i]);
+    }
+    fclose(file);
+
+    printf("Task deleted successfully!\n");
+}
