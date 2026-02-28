@@ -1,11 +1,11 @@
-# 📝 To-Do List App (C Language)
+# 📝 To-Do List App (C Language).
 
 A simple **command-line To-Do List application** written in **C**, allowing you to manage your daily tasks directly from the terminal.
 It supports adding, viewing, and deleting tasks, with all data stored in a local text file (`todo.txt`).
 
 ---
 
-## 🚀 Features
+## 🚀 Features:
 
 * ➕ **Add new tasks**
 * 📋 **View all tasks**
@@ -15,7 +15,7 @@ It supports adding, viewing, and deleting tasks, with all data stored in a local
 
 ---
 
-## 🧩 How It Works
+## 🧩 How It Works:
 
 Each task is stored as a new line in `todo.txt`.
 When you:
@@ -26,7 +26,7 @@ When you:
 
 ---
 
-## 🧠 Example Usage
+## 🧠 Example Usage:
 
 ```
 ====== TO-DO LIST APP ======
