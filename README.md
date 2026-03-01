@@ -17,7 +17,7 @@ It supports adding, viewing, and deleting tasks, with all data stored in a local
 
 ## 🧩 How It Works:
 
-Each task is stored as a new line in `todo.txt`.
+Each task is stored as a new line in `Todo.txt`.
 When you:
 
 * Add → the task is appended to the file
